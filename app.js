@@ -1,3 +1,4 @@
+const connectDB = require("./config/db"); 
 const express = require("express");
 const app = express();
 const tourRouter = require("./routes/tourRouter");
@@ -9,7 +10,7 @@ app.use(morgan("dev"));
 
 // Middleware to parse JSON
 app.use(express.json());
- 
+connectDB();
 // Use the tourRouter for all "/tours" routes
 app.use("/api/tours", tourRouter);
 
