@@ -46,30 +46,51 @@ const getTourById = async (req, res) => {
 };
 
 
-// PUT /tours/:tourId
+// // PUT /tours/:tourId
+// const updateTour = async (req, res) => {
+//   const { tourId } = req.params;
+
+//   if (!mongoose.Types.ObjectId.isValid(tourId)) {
+//     return res.status(400).json({ message: "Invalid Tour ID" });
+//   }
+
+//   try {
+//     const updatedTour = await Tour.findOneAndUpdate(
+//       { _id: tourId },
+//       { ...req.body },
+//       { new: true }
+//     );
+//     if (updatedTour) {
+//       res.status(200).json(updatedTour);
+//     } else {
+//       res.status(404).json({ message: "Tour not found" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: "Failed to update tour" });
+//   }
+// };
 const updateTour = async (req, res) => {
   const { tourId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(tourId)) {
-    return res.status(400).json({ message: "Invalid Tour ID" });
+    return res.status(400).json({ message: "Invalid tour ID" });
   }
 
   try {
-    const updatedTour = await Tour.findOneAndUpdate(
-      { _id: tourId },
-      { ...req.body },
-      { new: true }
-    );
+    const updatedTour = await Tour.findOneAndReplace(
+     { _id: tourId },
+     { ...req.body },
+   );
+
     if (updatedTour) {
       res.status(200).json(updatedTour);
     } else {
       res.status(404).json({ message: "Tour not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to update tour" });
+    res.status(500).json({ message: "Failed to update Tour" });
   }
 };
-
 
 // DELETE /tours/:tourId
 const deleteTour = async (req, res) => {

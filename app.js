@@ -1,4 +1,3 @@
-
 const { unknownEndpoint, errorHandler } = require("./middleware/customMiddleware");
 require('dotenv').config();
 const connectDB = require("./config/db"); 
